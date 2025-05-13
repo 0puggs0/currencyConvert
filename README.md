@@ -1,97 +1,112 @@
+# Emosphere
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# Руководство по сборке и тестированию приложения
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Требования для разработки
 
-## Step 1: Start Metro
+Перед началом работы убедитесь, что на вашем компьютере установлены следующие инструменты:
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- [Node.js](https://nodejs.org/) (рекомендуется версия LTS)
+- [React Native CLI](https://reactnative.dev/docs/environment-setup)
+- [Android Studio](https://developer.android.com/studio) с установленным эмулятором или подключенным физическим устройством
+- [Xcode](https://developer.apple.com/xcode/) (только для macOS, для сборки под iOS)
+- [Git](https://git-scm.com/) для клонирования репозитория
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Шаги для сборки и локального тестирования
 
-```sh
-# Using npm
-npm start
+### 1. Клонирование репозитория
 
-# OR using Yarn
-yarn start
+```bash
+# Клонируйте репозиторий на ваш локальный компьютер
+git clone https://github.com/0puggs0/currencyConvert
+
+# Перейдите в директорию проекта
+cd your-repository
 ```
 
-## Step 2: Build and run your app
+### 2. Установка зависимостей
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+# Установите все необходимые зависимости
+npm install
 ```
 
-### iOS
+### 3. Запуск на Android
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+1. Убедитесь, что Android-эмулятор запущен или подключено физическое устройство.
+2. Выполните следующую команду для запуска приложения:
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+npx react-native run-android
 ```
 
-Then, and every time you update your native dependencies, run:
+### 4. Запуск на iOS (только для macOS)
 
-```sh
-bundle exec pod install
+1. Откройте проект в Xcode:
+
+```bash
+open ios/tzApp.xcworkspace
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+2. Выберите целевое устройство (симулятор или подключенное устройство) в Xcode.
+3. Нажмите кнопку **Run** в Xcode или выполните команду:
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+```bash
+npx react-native run-ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### 5. Сборка APK-файла для Android
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+1. Убедитесь, что в файле `android/app/build.gradle` в секции `signingConfigs` указаны настройки подписи (или используйте отладочную подпись).
+2. Выполните следующую команду для сборки релизного APK:
 
-## Step 3: Modify your app
+```bash
+cd android
+./gradlew assembleRelease
+```
 
-Now that you have successfully run the app, let's make changes!
+3. Найдите готовый APK-файл в папке:
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+```
+android/app/build/outputs/apk/release/app-release.apk
+```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### 6. Дополнительные шаги для iOS (сборка в Release)
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+1. В Xcode выберите схему сборки **Release**.
+2. Настройте подпись в разделе **Signing & Capabilities**.
+3. Соберите проект через Xcode или выполните команду:
 
-## Congratulations! :tada:
+```bash
+npx react-native run-ios --configuration Release
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+## Полезные команды
 
-### Now what?
+- Очистка кэша React Native:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+```bash
+npm start --reset-cache
+```
 
-# Troubleshooting
+- Очистка сборки Android:
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```bash
+cd android
+./gradlew clean
+```
 
-# Learn More
+- Очистка сборки iOS:
 
-To learn more about React Native, take a look at the following resources:
+```bash
+cd ios
+xcodebuild clean
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Полезные ссылки
+
+- [Документация React Native](https://reactnative.dev/docs/environment-setup)
+- [Настройка Android Studio](https://developer.android.com/studio)
+- [Настройка Xcode](https://developer.apple.com/xcode/)
